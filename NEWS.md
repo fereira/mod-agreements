@@ -1,3 +1,12 @@
+## 1.8.0 2019-08-12
+ * ERM-290 Set up Job Management for Local KB Admin
+   * ERM-334 Delete job not in progress
+ * ERM-274 Add cleanup task for orphan file uploads
+ * ERM-265 Export Agreement data as JSON
+ * ERM-215 Export Agreement data as KBART
+ * ERM-327 Export entitlements as JSON from single agreement
+ * ERM-328 Export entitlements as KBART from single agreement
+
 ## 1.8.0 2019-07-24
  * ERM-273 Manage usage data providers on agreements
    * ERM-291 Add usage data provider to subscription agreement

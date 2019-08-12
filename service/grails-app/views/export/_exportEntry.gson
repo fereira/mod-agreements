@@ -42,10 +42,11 @@ switch (resource) {
     break
 }
 
-//final Map<String,?> result = ['title': ti, entitlement: ent]
+ 
+Map customCoverageMap = request?.getAttribute("${controllerName}.${actionName}.customCoverage") as Map 
 
-// We probably don't actually want to do this, but this gives us an Idea of what is happening.
-//json g.render(result)
+// Check for custom coverage on this resource.
+List customCoverageList = customCoverageMap?.get("${resource.id}") 
 
 json {
   if (via_package) {
@@ -61,21 +62,35 @@ json {
   if (the_platform) {
      platform g.render(the_platform)
   }
+  
   if (the_note) {
-     // note g.render(the_note)
      note the_note
   }
+  
   if (the_url) {
-     // url g.render(the_url)
      url the_url
   }
+  
   if (the_depth) {
-    // depth g.render(the_url)
     depth the_depth 
   }
-   
-  title g.render(ti, [expand: ['identifiers', 'type', 'subType', 'coverage'], excludes: ['entitlements', 'work', 'platformInstances']])
   
-   
+  if (customCoverageList) {
+    
+    'coverage' g.render (customCoverageList)
+    'customCoverage' true
+    
+  } else if (resource.coverage) {
+    
+    'coverage' g.render (resource.coverage)
+    'customCoverage' false
+     
+  } else {
+    'coverage' []
+    'customCoverage' false
+  }
+  
+  title g.render(ti, [expand: ['identifiers', 'type', 'subType'], excludes: ['entitlements', 'coverage', 'work', 'platformInstances']])
+
 }
 
